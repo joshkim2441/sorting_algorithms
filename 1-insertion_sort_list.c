@@ -20,7 +20,7 @@ void insertion_sort_list(listint_t **list)
 		/*Insert current node in its sorted position*/
 		while (curr->prev != NULL && curr->n < curr->prev->n)
 		{
-			swap_nodes(list, curr->prev, curr);
+			nodes_swap(list, curr->prev, curr);
 			print_list(*list); /*Print list after each swap*/
 		}
 	}
