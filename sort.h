@@ -1,8 +1,7 @@
 #ifndef SORT_H
 #define SORT_H
-
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <stddef.h>
 #include <sys/types.h>
 
@@ -20,7 +19,6 @@ typedef struct listint_s
 	struct listint_s *next;
 } listint_t;
 
-int main(void);
 /* Print functions */
 void print_list(const listint_t *list);
 void print_array(const int *array, size_t size);
@@ -28,7 +26,7 @@ void print_array(const int *array, size_t size);
 /* Mandatory Tasks*/
 void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
-void nodes_swap(listint_t **list, listint_t *node1, listint_t *node2);
+void nodes_swap(listint_t **list, listint_t **node1, listint_t *node2);
 void selection_sort(int *array, size_t size);
 void qSort(int *array, int low, int high, size_t size);
 int lom_partition(int *array, int low, int high, size_t size);
