@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "sort.h"
 
 /**
@@ -16,7 +18,7 @@ int main(void)
 
 	print_array(array, n);
 	printf("\n");
-	quick_sort_hoare(array, n);
+	bubble_sort(array, n);
 	printf("\n");
 	print_array(array, n);
 	return (0);
