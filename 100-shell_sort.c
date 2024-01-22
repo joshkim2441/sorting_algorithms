@@ -38,7 +38,7 @@ void shell_sort(int *array, size_t size)
 	{
 		for (a = gap; a < size; a++)
 			for (tmp = a; tmp >= gap &&
-			(array[tmp] > array[tmp - gap]); tmp -= gap)
+			(array[tmp] < array[tmp - gap]); tmp -= gap)
 				swap_indx(array, tmp, tmp - gap);
 		print_array(array, size);
 	/*Print the array each time gap is decreased*/
