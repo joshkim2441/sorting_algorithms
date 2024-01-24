@@ -1,113 +1,69 @@
 #include "sort.h"
-
 /**
- *c_alloc -Ccontigiously allocates memory
- *@n_elm: The number of elements
- *@size: The bit-size of each element
- *Return: A pointer assigned to memory
- */
-void *c_alloc(unsigned int n_elm, unsigned int size)
-{
-	unsigned int x = 0;
-	char *bs;
-
-	if (n_elm == 0 || size == 0)
-		return ('\0');
-	bs = malloc(n_elm * size);
-	if (bs == '\0')
-		return ('\0');
-	for (x = 0; x < (n_elm * size); x++)
-		bs[x] = '\0';
-	return (bs);
-}
-
-/**
- *merge_s - Merges an array of integers
- *@arr: An array of indexes from start to mid
- *@temp: temp array created outside to
- *optimize reducing the system calls used in merge
- *@frt: The first element position
- *@cen: The middle of the array
- *@fin: The last element position
+ * merge_s - merges l and r arrays into original array
+ * @array: pointer to array
+ * @size: size of the array
+ * @l: pointer to left array
+ * @r: pointer to right array
  **/
-void merge_s(int *arr, int *temp, int frt, int cen, int fin)
+void merge_s(int *array, int *l, int *r, size_t size)
 {
-	/* temp arrays and sizes */
-	int size_lt = cen - frt + 1, size_rt = fin - cen;
-	int *array_lt, *array_rt;
-	/* function counters */
-	int lt, rt, a = 0;
+	int i = 0, j = 0, k = 0;
+	int size_l, size_r;
 
-	array_lt = &temp[0];
-	array_rt = &temp[size_rt];
-	for (lt = 0; lt < size_lt; lt++)
-		array_lt[lt] = arr[frt + lt];
-	for (rt = 0; rt < size_rt; rt++)
-		array_rt[rt] = arr[cen + 1 + rt];
-	lt = 0, rt = 0, a = frt;
-	/* merge the temp arrays into the main arrays*/
-	while (lt < size_lt && rt < size_rt)
-	{
-		if (array_lt[lt] <= array_rt[rt])
-			arr[a] = array_lt[lt], lt++;
-		else
-			arr[a] = array_rt[rt], rt++;
-		a++;
-	}
-	/* merge the remainder of left array into the main array*/
-	while (lt < size_lt)
-		arr[a] = array_lt[lt], lt++, a++;
-	/* merge the remainder right array into the main array*/
-	while (rt < size_rt)
-		arr[a] = array_rt[rt], rt++, a++;
+	size_l = size / 2;
+	size_r = size - size_l;
 	printf("Merging...\n");
-	printf("[lt]: ");
-	print_array(array_lt, lt);
-	printf("[rt]: ");
-	print_array(array_rt, rt);
-	printf("[Done]: ");
-	print_array(&arr[frt], lt + rt);
-}
+	printf("[left]: ");
+	print_array(l, size_l);
+	printf("[right]: ");
+	print_array(r, size_r);
 
-/**
- *m_sort - function that sorts an array of integers
- *in ascending order using the Merge sort algorithm
- *@array: an array of integers
- *@temp: temp array used in merge, was created outside to
- *optimize reducing the system calls
- *@frt: the first element position
- *@fin: the last element position
- *Return: void
- */
-void m_sort(int *array, int *temp, int frt, int fin)
-{
-	int fin;
-
-	cen = (frt + fin) / 2;
-	if ((frt + fin) % 2 == 0)
-		cen--;
-	if (cen >= frt)
+	while (i < size_l && j < size_r)
 	{
-		m_sort(array, temp, frt, cen);
-		m_sort(array, temp, mid + 1, fin);
-		merge(array, temp, frt, cen, fin);
+		if (l[i] < r[j])
+			array[k++] = l[i++];
+		else
+			array[k++] = r[j++];
 	}
+
+	while (i < size_l)
+		array[k++] = l[i++];
+
+	while (j < size_r)
+		array[k++] = r[j++];
+	printf("[Done]: ");
+	print_array(array, size);
 }
-
 /**
- *m_sort - the function that sorts an array of integers
- *in ascending order using the Merge sort algorithm
- *@size: the size of the list
- *@array: an array of integers
- *Return: void
- */
-void m_sort(int *array, size_t size)
+ * merge_sort - sorts an array of integers in ascending order using
+ * the Merge sort algorithm
+ * @array: pointer to array
+ * @size: size of the array
+ **/
+void merge_sort(int *array, size_t size)
 {
-	int *tp;
+	size_t cen = 0, i;
+	int left[1000];
+	int right[1000];
 
-	if (!array || size < 2)
+	if (!array)
 		return;
-	tmp = c_alloc(size, sizeof(int));
-	m_sort(array, tmp, 0, size - 1);
-	free(tp);
+
+	if (size < 2)
+		return;
+
+	cen = size / 2;
+	/*left = (int*)malloc(sizeof(int) * mid);*/
+	/*right = (int*)malloc(sizeof(int) * (size - mid));*/
+
+	for (i = 0; i < cen; i++)
+		left[i] = array[i];
+
+	for (i = cen; i < size; i++)
+		right[i - cen] = array[i];
+
+	merge_sort(left, cen);
+	merge_sort(right, size - cen);
+	merge_s(array, left, right, size);
 }
