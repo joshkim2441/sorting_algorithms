@@ -6,32 +6,32 @@
  * @l: pointer to left array
  * @r: pointer to right array
  **/
-void merge_s(int *array, int *l, int *r, size_t size)
+void merge_s(int *array, int *lt, int *rt, size_t size)
 {
-	int i = 0, j = 0, k = 0;
-	int size_l, size_r;
+	int a = 0, b = 0, c = 0;
+	int size_lt, size_rt;
 
-	size_l = size / 2;
-	size_r = size - size_l;
+	size_lt = size / 2;
+	size_rt = size - size_lt;
 	printf("Merging...\n");
 	printf("[left]: ");
-	print_array(l, size_l);
+	print_array(lt, size_lt);
 	printf("[right]: ");
-	print_array(r, size_r);
+	print_array(rt, size_rt);
 
-	while (i < size_l && j < size_r)
+	while (a < size_lt && b < size_rt)
 	{
-		if (l[i] < r[j])
-			array[k++] = l[i++];
+		if (lt[a] < rt[b])
+			array[c++] = lt[a++];
 		else
-			array[k++] = r[j++];
+			array[c++] = rt[b++];
 	}
 
-	while (i < size_l)
-		array[k++] = l[i++];
+	while (a < size_lt)
+		array[c++] = lt[a++];
 
-	while (j < size_r)
-		array[k++] = r[j++];
+	while (b < size_rt)
+		array[c++] = rt[b++];
 	printf("[Done]: ");
 	print_array(array, size);
 }
@@ -44,8 +44,8 @@ void merge_s(int *array, int *l, int *r, size_t size)
 void merge_sort(int *array, size_t size)
 {
 	size_t cen = 0, i;
-	int left[1000];
-	int right[1000];
+	int lt[1000];
+	int rt[1000];
 
 	if (!array)
 		return;
@@ -58,12 +58,13 @@ void merge_sort(int *array, size_t size)
 	/*right = (int*)malloc(sizeof(int) * (size - mid));*/
 
 	for (i = 0; i < cen; i++)
-		left[i] = array[i];
+		lt[i] = array[i];
 
 	for (i = cen; i < size; i++)
-		right[i - cen] = array[i];
+		rt[i - cen] = array[i];
 
-	merge_sort(left, cen);
-	merge_sort(right, size - cen);
-	merge_s(array, left, right, size);
+	merge_sort(lt, cen);
+	merge_sort(rt, size - cen);
+	merge_s(array, lt, rt, size);
 }
+
