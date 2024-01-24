@@ -40,6 +40,7 @@ void heap_sort(int *array, size_t size);
 void radix_sort(int *array, size_t size);
 void bitonic_sort_seq(int arr[], int size, int elem, int seq, int low);
 void bitonic_sort(int *array, size_t size);
+void merge_sort(int *array, size_t size);
 void join(int arr[], int elem, int low, int seq);
 void quick_sort_hoare(int *array, size_t size);
 
