@@ -39,12 +39,12 @@ void merge_s(int *arr, int *temp, int frt, int cen, int fin)
 	int lt, rt, a = 0;
 
 	array_lt = &temp[0];
-	arrsy_rt = &temp[size_rt];
+	array_rt = &temp[size_rt];
 	for (lt = 0; lt < size_lt; lt++)
 		array_lt[lt] = arr[frt + lt];
 	for (rt = 0; rt < size_rt; rt++)
 		array_rt[rt] = arr[cen + 1 + rt];
-	lt = 0, rt = 0, i = frt;
+	lt = 0, rt = 0, a = frt;
 	/* merge the temp arrays into the main arrays*/
 	while (lt < size_lt && rt < size_rt)
 	{
@@ -72,42 +72,42 @@ void merge_s(int *arr, int *temp, int frt, int cen, int fin)
 /**
  *m_sort - function that sorts an array of integers
  *in ascending order using the Merge sort algorithm
- *@array: array of integers
- *@tmp: temp array used in merge, was created outside to
+ *@array: an array of integers
+ *@temp: temp array used in merge, was created outside to
  *optimize reducing the system calls
- *@start: first element position
- *@end: last element position
+ *@frt: the first element position
+ *@fin: the last element position
  *Return: void
  */
-void m_sort(int *array, int *tmp, int start, int end)
+void m_sort(int *array, int *temp, int frt, int fin)
 {
-	int mid;
+	int fin;
 
-	mid = (start + end) / 2;
-	if ((start + end) % 2 == 0)
-		mid--;
-	if (mid >= start)
+	cen = (frt + fin) / 2;
+	if ((frt + fin) % 2 == 0)
+		cen--;
+	if (cen >= frt)
 	{
-		m_sort(array, tmp, start, mid0;
-		m_sort(array, tmp, mid + 1, end);
-		merge(array, tmp, start, mid, end);
+		m_sort(array, temp, frt, cen);
+		m_sort(array, temp, mid + 1, fin);
+		merge(array, temp, frt, cen, fin);
 	}
 }
 
 /**
- *m_sort - function that sorts an array of integers
+ *m_sort - the function that sorts an array of integers
  *in ascending order using the Merge sort algorithm
- *@size: size of the list
- *@array: array of integers
+ *@size: the size of the list
+ *@array: an array of integers
  *Return: void
  */
 void m_sort(int *array, size_t size)
 {
-	int *tmp;
+	int *tp;
 
 	if (!array || size < 2)
 		return;
-	tmp = _calloc(size, sizeof(int));
+	tmp = c_alloc(size, sizeof(int));
 	m_sort(array, tmp, 0, size - 1);
-	free(tmp);
+	free(tp);
 }
